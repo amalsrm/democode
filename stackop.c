@@ -1,10 +1,36 @@
 #include<stdio.h>
 #include<stdlib.h>
-void insert(int val,int stack[10],int top)
-{
-    top=top+1;
-    if (top<8)
+    void showagain(int c,int val,int stack[],int n,int top)
     {
+    printf("Enter the choice: \n");
+    printf("1.insertion\n2.deletion\n3.display\n");
+    scanf("%d",&c);
+    switch (c)
+    {
+    case 1:
+        printf("Enter the value to insert:\n");
+        scanf("%d",&val);
+        insert(val,stack,top,n);
+        top++;
+        show(top,stack);
+        showagain(c,val,stack,n,top);
+        break;
+    case 2:delete(top,stack);
+        top--;
+        show(top,stack);
+        showagain(c,val,stack,n,top);
+        break;
+    case 3:show(top,stack);
+        break;
+    default:
+        break;
+    }
+    }
+void insert(int val,int stack[],int top,int n)
+{
+    if (top<5)
+    {
+      top++;
       stack[top]=val;  
     }
     else
@@ -12,17 +38,30 @@ void insert(int val,int stack[10],int top)
         printf("Stack is full");
     }
 }
-void display(int top,int stack[])
+void show(int top,int stack[])
 {
-    while (top!=-1)
+    int temp=top;
+    while (temp!=-1)
+    {
+        printf("%d\n",stack[temp]);
+        temp--;
+    } 
+}
+void delete(int top,int stack[])
+{
+    if (top!=-1)
     {
         top--;
-        printf("/n%d",stack[top]);
-    } 
+    }
+    else
+    {
+        printf("Stack is empty");
+    }
+    
 }
 void main()
 {
-    int stack[10],top=-1,value,val,n,temp;
+    int stack[6],top=-1,value,val,n,c;
     printf("Enter the size of the stack: \n");
     scanf("%d",&n);
     printf("Enter the values to the stack: \n");
@@ -30,13 +69,13 @@ void main()
     {
         while (top<n-1)
         {
-            top=top+1;
+            top++;
             scanf("%d",&value);
             stack[top]=value;
         }
         
     }
-    temp=top;
-    display(temp,stack);
+    show(top,stack);
+    showagain(c,val,stack,n,top);
 }
     
